@@ -11,8 +11,6 @@ async function bootstrap() {
       //
       const prisma = nestApplication.get(PrismaService);
 
-      await prisma.cleanDb();
-      await prisma.seedUsers();
       return nestApplication;
     },
   );
@@ -26,7 +24,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('VapeStore RAVN')
     .build();
-    
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 

@@ -12,9 +12,11 @@ model User {
   id               Int                @id @default(autoincrement())
   email            String             @unique
   password         String
+  name             String
+  lastName         String
   role             Role               @default(CLIENT)
   LikesOnProduct   LikesOnProduct[]
-  Cart             Cart[]
+  Cart             Cart []
   Order            Order[]
   sessions  Session[]
 
@@ -51,7 +53,7 @@ model Product {
   id             Int              @id @default(autoincrement())
   name           String
   description    String?
-  price          Int
+  price          Float
   stock          Int
   categoryId     Int
   isDisabled     Boolean          @default(false)
@@ -71,8 +73,6 @@ model Product {
 model Image {
   id        Int     @id @default(autoincrement())
   url       String
-  caption   String
-  description String
   filename  String
   productId Int
   product   Product @relation(fields: [productId], references: [id])
@@ -96,9 +96,6 @@ model Cart {
   cartItem  CartItem[]
   createdAt DateTime   @default(now())
   updatedAt DateTime?  @updatedAt
-  deletedAt      DateTime?
-
-  @@index([userId])
 }
 
 model CartItem {
@@ -109,7 +106,6 @@ model CartItem {
   quantity  Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  deletedAt      DateTime?
 
   @@id([cartId, productId])
 }
@@ -119,7 +115,7 @@ model Order {
   user      User        @relation(fields: [userId], references: [id])
   userId    Int
   orderItem OrderItem[]
-  total     Int
+  total     Float
   createdAt DateTime    @default(now())
 
 }
@@ -128,8 +124,8 @@ model OrderItem {
   id        Int     @id @default(autoincrement())
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  totalPriceItem     Int
+  price     Float
   quantity  Int
   Order     Order   @relation(fields: [orderId], references: [id])
   orderId   Int
-}
+} 

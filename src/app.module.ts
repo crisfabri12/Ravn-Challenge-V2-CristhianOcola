@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigService } from './config/config.service';
@@ -9,6 +9,10 @@ import { JwtStrategy } from './auth/jwt.strategy';
 import { PrismaService } from './prisma/prisma.service';
 import configuration from './configuration';
 import { ConfigModule } from '@nestjs/config';
+import { AwsModule } from './config/aws/aws.module';
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { CartsModule } from './carts/carts.module';
 
 @Module({
   imports: [
@@ -17,9 +21,14 @@ import { ConfigModule } from '@nestjs/config';
       load: [configuration],
     }),
     AuthModule,
+
     UsersModule,
+    ProductsModule,
+    ConfigService,
     DatabaseModule,
-    ConfigService
+    AwsModule,
+    CartsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [
@@ -29,6 +38,7 @@ import { ConfigModule } from '@nestjs/config';
     PrismaService],
 })
 export class AppModule {
+  
   static port: number | string;
 
   constructor() {

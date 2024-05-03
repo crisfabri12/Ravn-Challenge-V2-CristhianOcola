@@ -9,9 +9,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   }
 
   async cleanDb() {
-    this.$transaction([
-      this.user.deleteMany(),
-    ]);
+    this.$transaction([]);
   }
 
   async seedUsers() {
@@ -22,29 +20,28 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         {
           email: 'client@example.com',
           name: 'Cliente',
-          lastName : '1',
+          lastName: '1',
           password: hashedPassword,
         },
         {
           email: 'manager@example.com',
           name: 'Manager',
-          lastName : '1',
+          lastName: '1',
           password: hashedPassword,
           role: Role.MANAGER,
         },
         {
           email: 'client2@example.com',
           name: 'Cliente',
-          lastName : '2',
+          lastName: '2',
           password: hashedPassword,
         },
         {
           email: 'client3@example.com',
           name: 'Cliente',
-          lastName : '3',
+          lastName: '3',
           password: hashedPassword,
         },
-    
       ],
     });
   }

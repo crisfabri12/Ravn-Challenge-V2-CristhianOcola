@@ -49,10 +49,8 @@ const configService = new ConfigService(process.env).ensureValues([
   'POSTGRES_DATABASE',
 ]);
 const auth = {
-    accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
-    refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
-  };
+  accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
+  refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
+};
 
-export {
-    auth,
-    configService };
+export { auth, configService };
