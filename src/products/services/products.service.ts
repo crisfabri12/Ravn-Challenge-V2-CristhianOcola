@@ -18,12 +18,12 @@ import {
   tap,
 } from 'rxjs';
 import * as _ from 'lodash';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { CreateProductDto } from '../dto/create-product-dto';
-import { PrismaError } from 'src/prisma/prisma.error';
+import { PrismaError } from '../../prisma/prisma.error';
 import { UpdateProductDto } from '../dto/update-product-dto';
 import { DeleteImageDto } from '../dto/delete-image-dto';
-import { AwsService } from 'src/config/aws/aws.service';
+import { AwsService } from '../../config/aws/aws.service';
 
 @Injectable()
 export class ProductsService {
@@ -103,14 +103,12 @@ export class ProductsService {
       categoryId = await this.getCategoryId(product.categoryId);
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(
-          `Not found product - ${product.categoryId}`,
-        );
+        throw new NotFoundException();
       }
       throw error;
     }
     try {
-      // Create prduct
+      // Create product
       createdProduct = await this.prisma.product.create({
         data: {
           name: product.name,
@@ -128,6 +126,7 @@ export class ProductsService {
           `No hay archivos para el producto ${createdProduct.id}. Saltando`,
         );
       }
+
     } catch (error) {
       // Manejar errores de base de datos u otros errores
       throw new Error(`Error al crear el producto` + error);

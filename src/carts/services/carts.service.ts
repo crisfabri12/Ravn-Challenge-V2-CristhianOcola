@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { OrdersService } from 'src/orders/services/order.service';
-import { PrismaError } from 'src/prisma/prisma.error';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { OrdersService } from '../../orders/services/order.service';
+import { PrismaError } from '../../prisma/prisma.error';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class CartsService {

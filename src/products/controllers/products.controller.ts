@@ -35,7 +35,7 @@ import { ProductsService } from '../services/products.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ValidBody } from '../../utils/decorators';
 import { CreateProductDto } from '../dto/create-product-dto';
-import { TransformDataInterceptor } from 'src/utils/transform-data.interceptor';
+import { TransformDataInterceptor } from '../../utils/transform-data.interceptor';
 import { PaginationParamsDto } from '../dto/pagination-param-dto';
 import { ProductDetailsDto } from '../dto/producto-detail-dto';
 

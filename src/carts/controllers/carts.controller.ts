@@ -16,13 +16,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CartsService } from '../services/carts.service';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { GetCurrentUserId } from 'src/auth/decorators/get-current-user-id.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { GetCurrentUserId } from '../../auth/decorators/get-current-user-id.decorator';
 import { UpdateCartDto } from '../dto/update-cart-dto';
-import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
-import { ValidBody } from 'src/utils/decorators';
+import { ValidBody } from '../../utils/decorators';
 import { CartDto } from '../dto/cart-dto';
+
 
 @Controller('carts')
 @ApiTags('Cart')
@@ -76,6 +77,7 @@ export class CartsController {
     return new CartDto(updatedCart);
   }
 
+  @Get('/')
   @ApiBearerAuth('access_token')
   @ApiOperation({
     summary:
@@ -88,7 +90,6 @@ export class CartsController {
   @ApiResponse({ status: 404, description: 'The cart could not be found.' })
   @Roles(Role.MANAGER)
   @UseGuards(JwtAuthGuard)
-  @Get('/')
   async getCart(@GetCurrentUserId() userId: number) {
     const cart = await this.cartsService.getOrCreateCart(userId);
     return new CartDto(cart);

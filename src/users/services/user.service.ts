@@ -1,12 +1,10 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  private logger = new Logger(UsersService.name);
-
   constructor(private prisma: PrismaService) {}
 
   async findOne(email: string): Promise<any | undefined> {
@@ -43,7 +41,7 @@ export class UsersService {
       data: {
         email: user.email.toLowerCase(),
         name: user.name.toLowerCase(),
-        lastName: user.lastname.toLowerCase(),
+        lastName: user.lastName.toLowerCase(),
         password: hashedPassword,
       },
     });

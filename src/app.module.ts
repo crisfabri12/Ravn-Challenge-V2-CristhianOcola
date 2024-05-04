@@ -6,7 +6,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/user.module';
 import { DatabaseModule } from './database/database.module';
 import { JwtStrategy } from './auth/jwt.strategy';
-import { PrismaService } from './prisma/prisma.service';
 import configuration from './configuration';
 import { ConfigModule } from '@nestjs/config';
 import { AwsModule } from './config/aws/aws.module';
@@ -35,7 +34,7 @@ import { CartsModule } from './carts/carts.module';
     ConfigService,
     AppService,
     JwtStrategy,
-    PrismaService],
+    ],
 })
 export class AppModule {
   

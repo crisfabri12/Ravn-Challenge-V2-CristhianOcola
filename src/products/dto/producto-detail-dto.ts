@@ -42,13 +42,15 @@ export class ProductDetailsDto {
 
   @Expose()
   likesCount: number;
-
+  @Exclude()
+  categoryId: number;
+  @Exclude()
   createdAt: Date;
-
+  @Exclude()
   updatedAt: Date;
-
+  @Exclude()
   deletedAt: Date;
-
+  @Exclude()
   isDisabled: boolean;
 
   @Expose()

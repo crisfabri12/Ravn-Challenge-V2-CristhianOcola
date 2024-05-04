@@ -5,12 +5,10 @@ import { PrismaService } from './prisma/prisma.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule).then(
     async (nestApplication) => {
-      //
-      // Create two test users (client, manager) when the application start if it doesn't exist
-      // TODO: Check the environment to only run when running locally or development mode
-      //
       const prisma = nestApplication.get(PrismaService);
 
+      prisma.cleanDb();
+      prisma.seedUsers();
       return nestApplication;
     },
   );

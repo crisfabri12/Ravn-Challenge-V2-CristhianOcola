@@ -1,19 +1,15 @@
 import {
-  BadRequestException,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { JsonWebTokenError, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { v4 as uuidv4 } from 'uuid';
 import { ConfigService } from '@nestjs/config';
-import { ResetPasswordDto } from '../dto/reset-password.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UsersService } from 'src/users/services/user.service';
 import { CreateUserDto } from '../dto/create-user-dto';
-import { ChangePasswordDto } from '../dto/change-password-dto';
-import { stdout } from 'process';
+import { PrismaService } from '../../prisma/prisma.service';
+import { UsersService } from '../../users/services/user.service';
+
 @Injectable()
 export class AuthService {
   constructor(

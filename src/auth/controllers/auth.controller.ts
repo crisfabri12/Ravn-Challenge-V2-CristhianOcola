@@ -31,7 +31,7 @@ import {
   import { Role } from '../types/roles.enum';
   import { RefreshTokenDto } from '../dto/refresh-token.dto';
   import { ResetPasswordDto } from '../dto/reset-password.dto';
-import { ValidBody } from 'src/utils/decorators';
+import { ValidBody } from '../../utils/decorators';
 import { CreateUserDto } from '../dto/create-user-dto';
   
   @ApiTags('Authentication')
@@ -77,7 +77,7 @@ import { CreateUserDto } from '../dto/create-user-dto';
       description: 'The credential is already in use',
     })
     @Post('/register')
-    async register(@Body() user: CreateUserDto) {
+    async register(@ValidBody() user: CreateUserDto) {
       await this.authService.register(user);
       return null;
     }

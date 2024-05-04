@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer';
 export class CreateUserDto {
   email: string;
   name: string;
-  lastname: string;
+  lastName: string;
   password: string;
   
 }
