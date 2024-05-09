@@ -98,7 +98,6 @@ export class ProductsService {
     await this.validateFiles(files);
     let createdProduct;
     let categoryId;
-    // check if category exists
     try {
       categoryId = await this.getCategoryId(product.categoryId);
     } catch (error) {
@@ -108,7 +107,6 @@ export class ProductsService {
       throw error;
     }
     try {
-      // Create product
       createdProduct = await this.prisma.product.create({
         data: {
           name: product.name,
@@ -118,7 +116,6 @@ export class ProductsService {
           categoryId: product.categoryId,
         },
       });
-      // Upload de Image
       if (files && files.length > 0) {
         await this.addImagesToProduct(createdProduct.id, files);
       } else {
@@ -128,7 +125,6 @@ export class ProductsService {
       }
 
     } catch (error) {
-      // Manejar errores de base de datos u otros errores
       throw new Error(`Error al crear el producto` + error);
     }
     return this.getProductDetails(createdProduct.id);
@@ -233,10 +229,8 @@ export class ProductsService {
 
   async likeProduct(userId: number, productId: number) {
     try {
-      // Verificar si el producto existe antes de continuar
       await this.getProductDetails(productId);
 
-      // Crear el like en la base de datos
       await this.prisma.likesOnProduct.create({
         data: {
           product: {
@@ -248,7 +242,6 @@ export class ProductsService {
         },
       });
 
-      // Incrementar el contador de likes del producto
       await this.prisma.product.update({
         where: { id: productId },
         data: { likesCount: { increment: 1 } },
@@ -256,14 +249,13 @@ export class ProductsService {
 
       return null;
     } catch (error) {
-      // Manejar errores específicos de Prisma
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         switch (error.code) {
-          case 'P2003': // UniqueConstraintViolation
+          case 'P2003':
             throw new ConflictException(
               `El usuario ya ha dado "like" al producto con ID ${productId}`,
             );
-          case 'P2016': // RelatedRecordNotFound
+          case 'P2016': 
             throw new NotFoundException(
               `Producto con ID ${productId} no encontrado`,
             );

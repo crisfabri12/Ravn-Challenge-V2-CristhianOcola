@@ -3,16 +3,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma/prisma.service';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule).then(
-    async (nestApplication) => {
-      const prisma = nestApplication.get(PrismaService);
+  const app = await NestFactory.create(AppModule);
 
-      prisma.cleanDb();
-      prisma.seedUsers();
-      return nestApplication;
-    },
-  );
-
+  const prisma = app.get(PrismaService);
+  await prisma.cleanDb();
+  await prisma.seedUsers();
+  await prisma.seedCategory();
+  await prisma.seedBooks(); 
+  
   app.setGlobalPrefix('api');
   app.enableCors();
 

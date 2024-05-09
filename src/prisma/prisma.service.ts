@@ -58,18 +58,21 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       ],
     });
   }
-  
-  async seedBooks() {
-    this.category.deleteMany();
+
+  async seedCategory(){
     await this.$queryRaw`ALTER SEQUENCE "Category_id_seq" RESTART WITH 1`;
-    this.category.createMany({
+    return this.category.createMany({
       data: [
         { name: 'Action', slug: 'action' },
         { name: 'Drama', slug: 'drama' },
         { name: 'Comedy', slug: 'comedy' },
       ],
     });
-    return await this.product.createMany({
+  }
+  
+  async seedBooks() {
+    await this.$queryRaw`ALTER SEQUENCE "Product_id_seq" RESTART WITH 1`;
+    return this.product.createMany({
       data: [
         {
           name: 'The Great Gatsby',

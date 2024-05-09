@@ -69,17 +69,12 @@ import { CreateUserDto } from '../dto/create-user-dto';
       description: 'The account was successfully created',
     })
     @ApiResponse({
-      status: 400,
-      description: "There's a validation error with the email/password",
-    })
-    @ApiResponse({
       status: 409,
       description: 'The credential is already in use',
     })
     @Post('/register')
-    async register(@ValidBody() user: CreateUserDto) {
-      await this.authService.register(user);
-      return null;
+    async register(@Body() user: CreateUserDto) {
+      return await this.authService.register(user);
     }
   
     @ApiOperation({

@@ -38,6 +38,7 @@ import { CreateProductDto } from '../dto/create-product-dto';
 import { TransformDataInterceptor } from '../../utils/transform-data.interceptor';
 import { PaginationParamsDto } from '../dto/pagination-param-dto';
 import { ProductDetailsDto } from '../dto/producto-detail-dto';
+import { UpdateProductDto } from '../dto/update-product-dto';
 
 @ApiTags('Product')
 @Controller('products')
@@ -159,7 +160,7 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard, RoleGuard)
   async updateProduct(
     @Param('id', ParseIntPipe) productId: number,
-    @Body() details: ProductDetailsDto,
+    @Body() details: UpdateProductDto,
   ) {
     return this.productsService.updateProduct(productId, details);
   }
